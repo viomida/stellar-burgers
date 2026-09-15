@@ -1,8 +1,8 @@
-import type { SerializedError } from '@reduxjs/toolkit';
+// src/components/app/type.ts
 import type { TIngredient } from '@utils-types';
 
 export type AppContentProps = {
   ingredients: TIngredient[];
   isLoading: boolean;
-  error: SerializedError | null;
+  error: string | null;
 };

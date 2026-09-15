@@ -1,26 +1,35 @@
 import { Preloader, OrderInfoUI } from '@ui';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector } from '../../services/store';
+import { getOrderByNumberApi } from '@api';
 
-import type { TIngredient } from '@utils-types';
+import type { TIngredient, TOrder } from '@utils-types';
 
 export const OrderInfo = (): React.JSX.Element => {
-  /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0,
-  };
+  const { number } = useParams<{ number: string }>();
+  const [orderData, setOrderData] = useState<TOrder | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const ingredients: TIngredient[] = [];
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
 
-  /**
-   * использование useMemo не обязательно
-   */
-  /* Готовим данные для отображения */
+  // Загружаем заказ по номеру
+  useEffect(() => {
+    if (!number) return;
+
+    setIsLoading(true);
+    getOrderByNumberApi(Number(number))
+      .then((data) => {
+        if (data.orders && data.orders.length > 0) {
+          setOrderData(data.orders[0]);
+        }
+      })
+      .catch(() => {})
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [number]);
+
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 
@@ -41,7 +50,6 @@ export const OrderInfo = (): React.JSX.Element => {
         } else {
           acc[item].count++;
         }
-
         return acc;
       },
       {}
@@ -60,7 +68,7 @@ export const OrderInfo = (): React.JSX.Element => {
     };
   }, [orderData, ingredients]);
 
-  if (!orderInfo) {
+  if (isLoading || !orderInfo) {
     return <Preloader />;
   }
 

@@ -8,10 +8,10 @@ export function getCookie(name: string): string | undefined {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-/* В тренажере приводится несовсем корректный пример этой функции
- там не задается path и возможна ситуация, когда на разных страницах в cookies
- будут разные токены, поэтому в path нужно задавать корень сайта path: '/' */
-
+/*
+  Устанавливает cookie. Можно передавать дополнительные свойства:
+  expires (время жизни), path (путь), domain (домен), secure (только HTTPS)
+*/
 export function setCookie(
   name: string,
   value: string,
@@ -32,8 +32,10 @@ export function setCookie(
   if (exp && exp instanceof Date) {
     props.expires = exp.toUTCString();
   }
+
   value = encodeURIComponent(value);
   let updatedCookie = name + '=' + value;
+
   for (const propName in props) {
     updatedCookie += '; ' + propName;
     const propValue = props[propName];
@@ -41,6 +43,7 @@ export function setCookie(
       updatedCookie += '=' + String(propValue);
     }
   }
+
   document.cookie = updatedCookie;
 }
 
