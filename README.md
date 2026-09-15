@@ -114,8 +114,10 @@ https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoC
 </div>
 
 
+<div align="center">
+❤️ Спасибо Яндекс Практикуму за этот проект!
 
-
+</div>
 
 
 

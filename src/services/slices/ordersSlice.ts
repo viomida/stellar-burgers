@@ -19,18 +19,15 @@ const initialState: TOrdersState = {
   orderModalData: null,
 };
 
-// Загрузка истории заказов пользователя
 export const fetchOrders = createAsyncThunk('orders/fetchAll', async () => {
   const orders = await getOrdersApi();
   return orders;
 });
 
-// Создание заказа
 export const createOrder = createAsyncThunk(
   'orders/create',
   async (ingredientIds: string[], { dispatch }) => {
     const response = await orderBurgerApi(ingredientIds);
-    // ✅ Очищаем конструктор после успешного заказа
     dispatch(clearConstructor());
     return response.order;
   }
@@ -46,7 +43,6 @@ const ordersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // История заказов
       .addCase(fetchOrders.pending, (state) => {
         state.isLoading = true;
         state.error = null;

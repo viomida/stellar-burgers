@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from '../../services/store';
 import { updateUser } from '../../services/slices/userSlice';
 
 export const Profile = (): React.JSX.Element => {
-  // ✅ Берём пользователя из стора
   const user = useSelector((state) => state.user.user);
 
   const dispatch = useDispatch();
@@ -15,7 +14,6 @@ export const Profile = (): React.JSX.Element => {
     password: '',
   });
 
-  // Обновляем форму при изменении user (например, после загрузки)
   useEffect(() => {
     setFormValue((prevState) => ({
       ...prevState,
@@ -24,7 +22,6 @@ export const Profile = (): React.JSX.Element => {
     }));
   }, [user]);
 
-  // Проверяем, изменилась ли форма
   const isFormChanged =
     formValue.name !== user?.name ||
     formValue.email !== user?.email ||
@@ -33,7 +30,6 @@ export const Profile = (): React.JSX.Element => {
   const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
 
-    // ✅ Отправляем обновление
     dispatch(
       updateUser({
         name: formValue.name,
@@ -43,7 +39,6 @@ export const Profile = (): React.JSX.Element => {
     )
       .unwrap()
       .then(() => {
-        // Очищаем поле пароля после успеха
         setFormValue((prevState) => ({ ...prevState, password: '' }));
       })
       .catch(() => {});

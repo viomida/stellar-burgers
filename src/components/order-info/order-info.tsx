@@ -13,7 +13,6 @@ export const OrderInfo = (): React.JSX.Element => {
 
   const ingredients = useSelector((state) => state.ingredients.ingredients);
 
-  // Загружаем заказ по номеру
   useEffect(() => {
     if (!number) return;
 

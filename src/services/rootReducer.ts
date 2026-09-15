@@ -7,7 +7,7 @@ import { ordersReducer } from './slices/ordersSlice';
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
-  burgerConstructor: constructorReducer,   // ← ПЕРЕИМЕНОВАНО?
+  burgerConstructor: constructorReducer,   
   user: userReducer,
   feed: feedReducer,
   orders: ordersReducer,

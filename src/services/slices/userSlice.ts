@@ -26,7 +26,7 @@ const initialState: TUserState = {
   error: null,
 };
 
-// Проверка авторизации при загрузке приложения
+//чек
 export const checkUserAuth = createAsyncThunk(
   'user/checkAuth',
   async () => {
@@ -35,7 +35,7 @@ export const checkUserAuth = createAsyncThunk(
   }
 );
 
-// Логин
+// логин
 export const loginUser = createAsyncThunk(
   'user/login',
   async (data: TLoginData) => {
@@ -46,7 +46,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// Регистрация
+// рега
 export const registerUser = createAsyncThunk(
   'user/register',
   async (data: TRegisterData) => {
@@ -57,14 +57,14 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-// Выход
+// экзит
 export const logoutUser = createAsyncThunk('user/logout', async () => {
   await logoutApi();
   deleteCookie('accessToken');
   localStorage.removeItem('refreshToken');
 });
 
-// Обновление профиля
+// ф5
 export const updateUser = createAsyncThunk(
   'user/update',
   async (data: Partial<TRegisterData>) => {
@@ -73,7 +73,7 @@ export const updateUser = createAsyncThunk(
   }
 );
 
-// Восстановление пароля
+// восстановление
 export const forgotPassword = createAsyncThunk(
   'user/forgotPassword',
   async (data: { email: string }) => {
@@ -81,7 +81,7 @@ export const forgotPassword = createAsyncThunk(
   }
 );
 
-// Сброс пароля
+// сброс
 export const resetPassword = createAsyncThunk(
   'user/resetPassword',
   async (data: { password: string; token: string }) => {
@@ -99,7 +99,7 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Проверка авторизации
+      // чек
       .addCase(checkUserAuth.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isAuthChecked = true;
@@ -108,7 +108,7 @@ const userSlice = createSlice({
         state.user = null;
         state.isAuthChecked = true;
       })
-      // Логин
+      // логин
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -121,15 +121,15 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message || 'Ошибка входа';
       })
-      // Регистрация
+      // рега
       .addCase(registerUser.fulfilled, (state, action) => {
         state.user = action.payload;
       })
-      // Выход
+      // экзит
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
       })
-      // Обновление профиля
+      // ф5
       .addCase(updateUser.fulfilled, (state, action) => {
         state.user = action.payload;
       });

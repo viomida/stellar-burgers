@@ -1,4 +1,3 @@
-// src/components/app/type.ts
 import type { TIngredient } from '@utils-types';
 
 export type AppContentProps = {

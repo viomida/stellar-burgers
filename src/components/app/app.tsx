@@ -57,13 +57,13 @@ const RouteComponent = (): React.JSX.Element => {
   return (
     <>
       <Routes location={background || location}>
-        {/* Публичные маршруты */}
+        {/* публичные маршруты */}
         <Route path="/" element={<ConstructorPage />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/ingredients/:id" element={<IngredientDetails />} />
         <Route path="/feed/:number" element={<OrderInfo />} />
 
-        {/* Только для неавторизованных */}
+        {/* нереганы */}
         <Route element={<ProtectedRoute onlyUnAuth />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -71,7 +71,7 @@ const RouteComponent = (): React.JSX.Element => {
           <Route path="/reset-password" element={<ResetPassword />} />
         </Route>
 
-        {/* Только для авторизованных */}
+        {/* реганы */}
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/orders" element={<ProfileOrders />} />
@@ -82,7 +82,7 @@ const RouteComponent = (): React.JSX.Element => {
         <Route path="*" element={<NotFound404 />} />
       </Routes>
 
-      {/* Модалки */}
+      {/* модалки */}
       {background && (
         <Routes>
           <Route

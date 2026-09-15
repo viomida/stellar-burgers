@@ -10,7 +10,6 @@ const getOrders = (orders: TOrder[], status: string): number[] =>
     .slice(0, 20);
 
 export const FeedInfo = (): React.JSX.Element => {
-  // ✅ Берём feed из стора
   const feed = useSelector((state) => state.feed);
 
   const readyOrders = getOrders(feed.orders, 'done');

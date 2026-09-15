@@ -27,6 +27,15 @@ const constructorSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
+    
+    moveIngredient: (
+      state,
+      action: PayloadAction<{ from: number; to: number }>
+    ) => {
+      const { from, to } = action.payload;
+      const [moved] = state.ingredients.splice(from, 1);
+      state.ingredients.splice(to, 0, moved);
+    },
     clearConstructor: (state) => {
       state.bun = null;
       state.ingredients = [];
@@ -34,8 +43,11 @@ const constructorSlice = createSlice({
   },
 });
 
-// ✅ Теперь экспортируем три экшена
-export const { addIngredient, removeIngredient, clearConstructor } =
-  constructorSlice.actions;
+export const {
+  addIngredient,
+  removeIngredient,
+  moveIngredient,   
+  clearConstructor,
+} = constructorSlice.actions;
 
 export const constructorReducer = constructorSlice.reducer;

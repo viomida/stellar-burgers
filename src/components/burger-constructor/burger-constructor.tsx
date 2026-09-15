@@ -1,5 +1,6 @@
 import { BurgerConstructorUI } from '@ui';
 import { useMemo } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../services/store';
 import {
   createOrder,
@@ -8,11 +9,14 @@ import {
 
 import type { TConstructorIngredient } from '@utils-types';
 
-export const BurgerConstructor = (): React.JSX.Element | null => {
+export const BurgerConstructor = (): React.JSX.Element => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const constructorItems = useSelector((state) => state.burgerConstructor);
   const { orderRequest, orderModalData } = useSelector((state) => state.orders);
+  const user = useSelector((state) => state.user.user);
 
   const bun = constructorItems?.bun ?? null;
   const ingredients = constructorItems?.ingredients ?? [];
@@ -20,7 +24,11 @@ export const BurgerConstructor = (): React.JSX.Element | null => {
   const onOrderClick = (): void => {
     if (!bun || orderRequest) return;
 
-    // Собираем массив ID ингредиентов: булка + начинки + булка
+    if (!user) {
+      navigate('/login', { state: { from: location } });
+      return;
+    }
+
     const ingredientIds = [
       bun._id,
       ...ingredients.map((item) => item._id),

@@ -15,7 +15,7 @@ export const BurgerIngredient = memo(function BurgerIngredient({
   const dispatch = useDispatch();
 
   const handleAdd = (): void => {
-    dispatch(addIngredient({ ...ingredient, id: nanoid() }));  // ← С nanoid!
+    dispatch(addIngredient({ ...ingredient, id: nanoid() }));  
   };
 
   return (
