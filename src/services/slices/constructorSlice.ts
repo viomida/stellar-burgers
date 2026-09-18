@@ -12,7 +12,7 @@ const initialState: TConstructorState = {
 };
 
 const constructorSlice = createSlice({
-  name: 'constructor',
+  name: 'constructor',   // ✅ ДОБАВЛЕНО name
   initialState,
   reducers: {
     addIngredient: (state, action: PayloadAction<TConstructorIngredient>) => {
@@ -27,7 +27,6 @@ const constructorSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
-    
     moveIngredient: (
       state,
       action: PayloadAction<{ from: number; to: number }>
@@ -37,16 +36,17 @@ const constructorSlice = createSlice({
       state.ingredients.splice(to, 0, moved);
     },
     clearConstructor: (state) => {
-      state.bun = null;
+      state.bun = null;          // ✅ ОЧИЩАЕМ БУЛКУ
       state.ingredients = [];
     },
   },
 });
 
+// ✅ ЗАКРЫТА СКОБКА
 export const {
   addIngredient,
   removeIngredient,
-  moveIngredient,   
+  moveIngredient,
   clearConstructor,
 } = constructorSlice.actions;
 

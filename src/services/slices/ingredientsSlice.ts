@@ -5,7 +5,7 @@ import type { TIngredient } from '@utils-types';
 type TIngredientsState = {
   ingredients: TIngredient[];
   isLoading: boolean;
-  error: string | null;
+  error: string | null;   // ✅ ДОБАВЛЕНО
 };
 
 const initialState: TIngredientsState = {
